@@ -1,0 +1,14 @@
+{
+  "name": "cirtor",
+  "version": "0.0.1",
+  "description": "circuit tutoring system",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.15.2",
+    "multer": "^1.4.1",
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node index"
+  }
+}

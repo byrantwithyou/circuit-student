@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>fritzing-student</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+</script>
+
+<body>
+  <h1>Student</h1>
+  <h4>idtype</h4>
+  <textarea id="idtype"></textarea>
+  <h4>Pos</h4>
+  <textarea id="pos"></textarea>
+  <h4>bool message</h4>
+  <textarea id="flag"></textarea>
+  <br>
+  <button id="send">Send</button>
+</body>
+<script>
+  let socket = io.connect("http://localhost:3000/student");
+  socket.on("ready", function() {
+    console.log("It's okay to emit");
+  });
+  $("#send").click(function() {
+    socket.emit("circuit change", $("#idtype").val(), $("#pos").val(), $("#flag").val());
+  })
+</script>
+</html>
