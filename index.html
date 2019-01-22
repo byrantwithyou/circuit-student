@@ -1,62 +1,32 @@
 <!doctype html>
 <html>
-  <head>
-    <title>fritzing-tutor</title>
-  </head>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-  <body>
-    <h1>Tutor</h1>
-    <div id="container" style="width: 650px;margin: 0;position: relative;">
-      <img style="position: absolute;width: 100%;z-index: 100; top:0px; left: 0px;" src="breadboard/breadboard2.svg">
-      <!--img src="breadboard/11LC040_breadboard.svg" style="position: absolute; top: 89px; left: 11px; z-index: 200">
-      <img src="breadboard/11LC010_breadboard.svg" style="position:absolute; top: 9px; left: 111px; z-index: 200"-->
-      <img src="breadboard/resistor_220.svg" style="position:absolute; top: 86px; left: 115px; z-index: 200">
 
-    </div>
-  </body>
-  <style>
-  </style>
-  <script>
-    let socket = io.connect("http://localhost:3000/tutor");
-    socket.on("circuit change", function(id, type, posx, posy, flag){
-      console.log(id, type, posx, posy, flag);
-      if (flag === "1") {
-        $("#" + id).remove();
-        let newSvg = $("<img src=" + type + ">");
-        $("#container").append(newSvg);
-        newSvg.attr("id", id);
-        let js_svg = document.getElementById(id);
-        let left_px = 15 + (Number(posx) - 1) * 10;
-        let top_px = {
-          "F": "86px",
-          "G": "76px",
-          "H": "66px",
-          "I": "56px",
-          "J": "46px",
-          "A": "156px",
-          "B": "146px",
-          "C": "136px",
-          "D": "126px",
-          "E": "116px",
-          "W": "196px",
-          "X": "186px",
-          "Y": "16px",
-          "Z": "6px"
-        }
-        js_svg.style.left = left_px + "px";
-        js_svg.style.top = top_px[posy];
-        js_svg.style.position = "absolute";
-        js_svg.style["z-index"] = 200;
-        
-      }
-     else {
-       
-         $("#" + id).remove();
-       
-     }
-    });
-    
-    
-    </script>
+<head>
+  <title>fritzing-student</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+</script>
+
+<body>
+  <h1>Student</h1>
+  <h4>idtype</h4>
+  <textarea id="idtype"></textarea>
+  <h4>Pos</h4>
+  <textarea id="pos"></textarea>
+  <h4>bool message</h4>
+  <textarea id="flag"></textarea>
+  <br>
+  <button id="send">Send</button>
+</body>
+<script>
+  let socket = io.connect("http://localhost:3000/student");
+  socket.on("ready", function() {
+    console.log("It's okay to emit");
+  });
+  $("#send").click(function() {
+    socket.emit("circuit change", $("#idtype").val(), $("#pos").val(), $("#flag").val());
+  })
+</script>
 </html>
