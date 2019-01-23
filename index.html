@@ -23,11 +23,8 @@
 <script>
   let socket = io.connect("http://localhost:3000/student");
   socket.on("ready", function() {
-    console.log("It's okay to emit");
+    console.log("It's okay for the student to emit");
   });
-  socket.on("hi", function(data) {
-    console.log(data);
-  })
   $("#send").click(function() {
     socket.emit("circuitChange", $("#idtype").val(), $("#pos").val(), $("#flag").val());
   })
