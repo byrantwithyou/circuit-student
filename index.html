@@ -25,8 +25,11 @@
   socket.on("ready", function() {
     console.log("It's okay to emit");
   });
+  socket.on("hi", function(data) {
+    console.log(data);
+  })
   $("#send").click(function() {
-    socket.emit("circuit change", $("#idtype").val(), $("#pos").val(), $("#flag").val());
+    socket.emit("circuitChange", $("#idtype").val(), $("#pos").val(), $("#flag").val());
   })
 </script>
 </html>

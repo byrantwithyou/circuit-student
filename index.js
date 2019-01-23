@@ -36,21 +36,26 @@ io.of("/tutor").on("connection", function(socket) {
   console.log("tutor connected");
   socket.on("disconnect", function(_) {
     console.log("tutor disconnect");
-  })
+  });
+  socket.on("fuck", function(data) {
+    io.of("student").connected[data].emit("hi", data);
+  });
 });
 
 io.of("/student").on("connection", function(socket) {
   console.log("student connected");
   socket.on("disconnect", function(_) {
     console.log("student disconnect");
-  })
+  });
+  console.log("on" + socket.id);
   socket.emit("ready");
-  socket.on("circuit change", function(idtype, pos, flag) {
+  socket.on("circuitChange", function(idtype, pos, flag) {
     let id = idtype.split("#")[0];
     let type = "breadboard/resistor_220.svg";
     let posy = pos[pos.length - 1];
     let posx = pos.substring(3, pos.length - 1);
-    io.of("/tutor").emit("circuit change", id, type, posx, posy, flag);
+    console.log("circuitChange" + socket.id);
+    io.of("/tutor").emit("circuitChange", id, type, posx, posy, flag);
   });
 })
 
