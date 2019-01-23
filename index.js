@@ -75,6 +75,7 @@ io.of("/student").on("connection", function(socket) {
 
   //Notify that the circuit has changed
   socket.on("circuitChange", function(idtype, pos, flag) {
+    console.log("flag" + flag);
     let id = idtype.split("#")[0];
     //TODO: let type = "breadboard/" + idtype.split("#")[1];
     let type = "breadboard/resistor_220.svg";
