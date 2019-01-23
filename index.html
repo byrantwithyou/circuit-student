@@ -39,6 +39,7 @@
   })
 
 
+  //Send circuit change information
   $("#send").click(function() {
     socket.emit("circuitChange", $("#idtype").val(), $("#pos").val(), $("#flag").val());
   })
