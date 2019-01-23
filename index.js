@@ -33,26 +33,47 @@ function get_file_content(filepath) {
 
 
 io.of("/tutor").on("connection", function(socket) {
+  
+  //Console Information
   console.log("tutor connected");
+  
+
+  //Disconnection
   socket.on("disconnect", function(_) {
     console.log("tutor disconnect");
   });
+
+  //Notify that a certain student is praised
+  socket.on("praise", function (socketId) {
+    if (io.of("/student").connected[socketId]) {
+      io.of("/student").connected[socketId].emit("studentPraise");
+    }
+  }); 
 });
 
-io.of("/student").on("connection", function(socket) {
+
+io.of("/student").on("connection", function(socket) {  
+
+  //console Information 
   console.log("student connected");
+  console.log("on" + socket.id);
+
 
   //Notify that the a certain student is on.
   io.of("/tutor").emit("studentOn", socket.id);
   
+  //Disconnection
   socket.on("disconnect", function(_) {
     console.log("student disconnect");
     //Notify that a certain student is off.
     io.of("/tutor").emit("studentOff", socket.id);
   });
 
-  console.log("on" + socket.id);
+
+  //Notify the student Client
   socket.emit("student ready");
+
+  //Notify that the circuit has changed
   socket.on("circuitChange", function(idtype, pos, flag) {
     let id = idtype.split("#")[0];
     let type = "breadboard/resistor_220.svg";
@@ -60,6 +81,8 @@ io.of("/student").on("connection", function(socket) {
     let posx = pos.substring(3, pos.length - 1);
     io.of("/tutor").emit("circuitChange", id, type, posx, posy, flag);
   });
+
+
 })
 
 

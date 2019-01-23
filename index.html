@@ -11,6 +11,9 @@
 
 <body>
   <h1>Student</h1>
+  <h5 id="praiseMsg">
+    You are not praised!    
+  </h5>
   <h4>idtype</h4>
   <textarea id="idtype"></textarea>
   <h4>Pos</h4>
@@ -22,9 +25,20 @@
 </body>
 <script>
   let socket = io.connect("http://localhost:3000/student");
+  
+  //Notify that the student is read
   socket.on("ready", function() {
     console.log("It's okay for the student to emit");
   });
+
+
+  //Notify that the student is praised
+  socket.on("studentPraise", function () {
+    console.log("you are praised");
+    $("#praiseMsg").html("You are praised");
+  })
+
+
   $("#send").click(function() {
     socket.emit("circuitChange", $("#idtype").val(), $("#pos").val(), $("#flag").val());
   })
