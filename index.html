@@ -26,9 +26,11 @@
 <script>
   let socket = io.connect("http://localhost:3000/student");
   
+
   //Notify that the student is read
-  socket.on("ready", function() {
-    console.log("It's okay for the student to emit");
+  socket.on("student ready", function() {
+    console.log(socket.id);
+    
   });
 
 
