@@ -30,7 +30,7 @@
   //Notify that the student is read
   socket.on("student ready", function() {
     console.log(socket.id);
-    
+    socket.emit("studentOn");
   });
 
 
