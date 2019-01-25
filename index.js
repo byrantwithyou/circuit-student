@@ -79,7 +79,9 @@ io.of("/student").on("connection", function(socket) {
     console.log("flag" + flag);
     let id = idtype.split("#")[0];
     let type = idtype.split("#")[1];
-    if (type === "wire") {
+    console.log(type);
+    if (type == "wire") {
+      console.log("hahahahahah");
       io.of("/tutor").emit("wire", idtype, pos, flag, socketId);
       return;
     };
