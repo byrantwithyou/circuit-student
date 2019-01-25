@@ -75,13 +75,18 @@ io.of("/student").on("connection", function(socket) {
 
   //Notify that the circuit has changed
   socket.on("circuitChange", function(idtype, pos, flag) {
+    let socketId = socket.id;
     console.log("flag" + flag);
     let id = idtype.split("#")[0];
-    //TODO: let type = "/breadboard/" + idtype.split("#")[1];
-    let type = "/breadboard/resistor_220.svg";
+    let type = idtype.split("#")[1];
+    if (type === "wire") {
+      io.of("/tutor").emit("wire", idtype, pos, flag, socketId);
+      return;
+    };
+    //TODO:type = "/breadboard/" + type;
+    type = "/breadboard/resistor_220.svg";
     let posy = pos[pos.length - 1];
     let posx = pos.substring(3, pos.length - 1);
-    let socketId = socket.id;
     io.of("/tutor").emit("circuitChange", id, type, posx, posy, flag, socketId);
   });
 
