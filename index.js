@@ -58,9 +58,12 @@ io.of("/student").on("connection", function(socket) {
   console.log("student connected");
   console.log("on" + socket.id);
 
+  socket.on("studentOn", function (_) {
+    io.of("/tutor").emit("studentOn", socket.id);
+  });
 
   //Notify that the a certain student is on.
-  io.of("/tutor").emit("studentOn", socket.id);
+  //io.of("/tutor").emit("studentOn", socket.id);
   
   //Disconnection
   socket.on("disconnect", function(_) {
@@ -72,7 +75,7 @@ io.of("/student").on("connection", function(socket) {
 
   //Notify the student Client
   socket.emit("student ready");
-
+  //
   //Notify that the circuit has changed
   socket.on("circuitChange", function(idtype, pos, flag) {
     let socketId = socket.id;
