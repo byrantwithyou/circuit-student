@@ -46,7 +46,7 @@ io.of("/tutor").on("connection", function(socket) {
   //Notify that a certain student is praised
   socket.on("praise", function (socketId) {
     if (io.of("/student").connected[socketId]) {
-      io.of("/student").connected[socketId].emit("studentPraise");
+      io.of("/student").connected[socketId].emit("praise");
     }
   }); 
 });
