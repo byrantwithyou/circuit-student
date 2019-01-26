@@ -35,9 +35,9 @@
 
 
   //Notify that the student is praised
-  socket.on("praise", function () {
+  socket.on("praise", function (msg) {
     console.log("you are praised");
-    $("#praiseMsg").html("You are praised");
+    $("#praiseMsg").html(msg);
   })
 
 
