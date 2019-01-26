@@ -84,7 +84,7 @@ io.of("/student").on("connection", function(socket) {
   //
   //Notify that the circuit has changed
   socket.on("circuitChange", function(imgstring) {
-    io.of("/tutor").emit("circuitChange", imgstring);
+    io.of("/tutor").emit("circuitChange", imgstring, socket.id);
   });
 
 
