@@ -14,13 +14,8 @@
   <h5 id="praiseMsg">
     You are not praised!    
   </h5>
-  <h4>idtype</h4>
-  <textarea id="idtype"></textarea>
-  <h4>Pos</h4>
-  <textarea id="pos"></textarea>
-  <h4>bool message</h4>
-  <textarea id="flag"></textarea>
-  <br>
+  <h4>imgstring</h4>
+  <textarea id="imgstring"></textarea>
   <button id="send">Send</button>
 </body>
 <script>
@@ -43,7 +38,7 @@
 
   //Send circuit change information
   $("#send").click(function() {
-    socket.emit("circuitChange", $("#idtype").val(), $("#pos").val(), $("#flag").val());
+    socket.emit("circuitChange", $("#imgstring").val());
   })
 </script>
 </html>
