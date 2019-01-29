@@ -49,6 +49,14 @@ io.of("/tutor").on("connection", function(socket) {
       io.of("/student").connected[socketId].emit("praise", msg);
     }
   }); 
+
+  //Tutor send a text to student
+  socket.on("text", function(socketId, msg) {
+    if (io.of("/student").connected[socketId]) {
+      io.of("/student").connected[socketId].emit("text", msg);
+    }
+  })
+
 });
 
 
