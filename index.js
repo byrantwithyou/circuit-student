@@ -71,7 +71,15 @@ io.of("/student").on("connection", function(socket) {
     io.of("/tutor").emit("studentOn", socket.id);
   });
 
-  
+  //Student Sleep
+  socket.on("studentSleep", function(_){
+    io.of("/tutor").emit("studentSleep", socket.id);
+  });
+
+  //Student Awake
+  socket.on("studentAwake", function(_) {
+    io.of("/tutor").emit("studentAwake", socket.id);
+  });
 
 
   
