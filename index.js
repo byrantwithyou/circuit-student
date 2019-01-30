@@ -57,6 +57,14 @@ io.of("/tutor").on("connection", function(socket) {
     }
   })
 
+  //Notify of the highlighted Area Event
+
+  socket.on("highlight", function(socketId, offsetX, offsetY, cropWidth, cropHeight) {
+    if (io.of("/student").connected[socketId]) {
+      io.of("/student").connected[socketId].emit("highlight", offsetX, offsetY, cropWidth, cropHeight);
+    }
+  })
+
 });
 
 
