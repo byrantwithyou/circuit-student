@@ -60,8 +60,17 @@ io.of("/tutor").on("connection", function(socket) {
   //Notify of the highlighted Area Event
 
   socket.on("highlight", function(socketId, offsetX, offsetY, cropWidth, cropHeight) {
+    console.log("highlight");
     if (io.of("/student").connected[socketId]) {
-      io.of("/student").connected[socketId].emit("highlight", offsetX, offsetY, cropWidth, cropHeight);
+      io.of("/student").connected[socketId].emit("highlight", {
+        x: offsetX,
+        y: offsetY,
+        width: cropWidth,
+        height: cropHeight
+      });
+      //io.of("/student").connected[socketId].emit("highlight", offsetX, offsetY, cropWidth, cropHeight);
+      console.log("hightlight is successful");
+      console.log(offsetX);
     }
   })
 
